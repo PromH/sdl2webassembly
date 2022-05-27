@@ -15,13 +15,13 @@ EMCC_PORTS = -s USE_LIBPNG=1 -s USE_ZLIB=1 -s USE_SDL_IMAGE=2 -s USE_SDL=2
 CCFLAGS = -std=c++1z $(INCLUDES) $(EMCC_PORTS) $(EMCC_FLAGS)
 
 SRC_DIR := src/cpp
-SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
+SRC_FILES := $(shell find $(SRC_DIR) -name '*.cpp')
 
 HDR_DIR := src/cpp
-HDR_FILES := $(wildcard $(HDR_DIR)/*.hpp) $(wildcard $(HDR_DIR)/*.h) 
+HDR_FILES := $(shell find $(SRC_DIR) -name '*.hpp') $(shell find $(SRC_DIR) -name '*.h')
 
 OBJ_DIR := obj
-OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
+OBJ_FILES := $(addprefix $(OBJ_DIR)/,$(SRC_FILES:%.cpp=%.o))
 
 appname = example
 example_sdl_target_file = hello_world_sdl
@@ -45,6 +45,8 @@ clean:	## Removes all files generated from this Makefile.
 
 .PHONY: all clean
 
+all: $(OBJ_FILES)
+
 help:	## Show this help.
 	@echo help
 
@@ -56,12 +58,15 @@ sdl2-example:	## Compiles the SDL2 application into a webassembly application.
 	$(CC) $(example_sdl2_target_file).o -o $(appname).cc.js -o $(appname).cc.html $(CCFLAGS)
 
 $(OBJ_DIR):	## Generates a directory for holding object files.
+	@echo Generating mirror directory for object files.
 	mkdir $(OBJ_DIR)
+	find $(SRC_DIR) -type d -exec mkdir -p $(OBJ_DIR)/'{}' \;
 
 $(OBJ_FILES): | $(OBJ_DIR)	## Makes the object directory a dependency for object files.
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(HDR_FILES)	## Compiles all cpp files located in the src directory.
-	$(CC) -c -o $@ $< $(CCFLAGS)
+$(OBJ_DIR)/%.o: %.cpp	## Compiles all cpp files located in the src directory.
+	@echo $(@)
+	$(CC) $(CCFLAGS) -c $< -o $@
 
 game: $(OBJ_FILES)	## Compiles the main game into a webassembly application.
 	$(CC) -o $@.cc.js -o $@.cc.html $^ $(CCFLAGS)

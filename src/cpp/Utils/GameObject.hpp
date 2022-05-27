@@ -1,7 +1,8 @@
 #pragma once
-#include "../Game.hpp"
+#include <SDL.h>
 
-class GameObject {
+class GameObject
+{
 private:
   int _xPos;
   int _yPos;

@@ -1,18 +1,19 @@
 #pragma once
 
 #include <SDL.h>
-#include <map>
 
 #include "Sprite.hpp"
 #include "Transform.hpp"
 
-class SpriteRenderer {
+class SpriteRenderer
+{
 public:
-	Transform* transform;
-  Sprite* sprite;
-  SDL_RendererFlip flipState = SDL_FLIP_NONE;
+	Transform *transform;
+	Sprite *sprite;
+	SDL_RendererFlip flipState = SDL_FLIP_NONE;
 
-	void Update() {
+	void Update()
+	{
 		this->sprite->Update(transform);
 
 		this->sprite->destRect.x = static_cast<int>(transform->position.x);
@@ -21,11 +22,13 @@ public:
 		this->sprite->destRect.h = this->transform->scale.y * this->transform->height;
 	}
 
-	void Draw() {
+	void Draw()
+	{
 		TextureManager::Draw(this->sprite->texture, this->sprite->srcRect, this->sprite->destRect, this->flipState);
 	}
 
-	void Play(const char* key) {
+	void Play(const char *key)
+	{
 		this->sprite->Play(key);
 	}
 };
