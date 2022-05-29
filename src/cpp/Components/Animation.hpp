@@ -16,3 +16,12 @@ struct Animation
 		this->speed = s;
 	}
 };
+
+class AnimationMap
+{
+public:
+	std::map<const char *, Animation> animations;
+	const char* key = "";
+	AnimationMap() {}
+	~AnimationMap() {}
+};

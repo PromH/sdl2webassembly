@@ -23,7 +23,7 @@ public:
     this->width = width;
   }
 
-  Transform(Vec2 pos, Vec2 rot, Vec2 scl, int height, int width)
+  Transform(Vec2 pos, Vec2 rot, Vec2 scl, int height = SPRITE_WIDTH, int width = SPRITE_HEIGHT)
   {
     this->position = pos;
     this->rotation = rot;

@@ -116,6 +116,11 @@
     "sdl_video.h": "c",
     "sdl_surface.h": "c",
     "sdl_rect.h": "c",
-    "sdl_pixels.h": "c"
+    "sdl_pixels.h": "c",
+    "bit": "cpp",
+    "*.tcc": "cpp",
+    "memory_resource": "cpp",
+    "cinttypes": "cpp",
+    "__assert": "cpp"
   }
 }

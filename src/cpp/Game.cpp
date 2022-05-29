@@ -2,17 +2,22 @@
 #include <iostream>
 
 #include "Game.hpp"
+#include "Components/Components.hpp"
+#include "Utils/Vec2.hpp"
 #include "Utils/Constants.hpp"
 #include "Utils/GameObject.hpp"
+#include "Utils/SpriteManager.hpp"
 
 int frame = 0;
 SDL_Renderer *Game::renderer = nullptr;
 SDL_Event Game::event;
 SDL_Rect Game::camera = {0, 0, GAME_SCREEN_WIDTH, GAME_SCREEN_HEIGHT};
 
-entt::registry registry;
+entt::registry gameRegistry;
 
-GameObject *player;
+// GameObject *player;
+entt::entity playerEntity;
+SpriteManager* playerSprite;
 
 bool Game::isRunning = false;
 
@@ -69,8 +74,17 @@ void Game::Init(const char *title, int xpos, int ypos, int width, int height,
   {
     // set up components here
 
-    player =
-        new GameObject("./src/assets/sprites/player-default.png", 500, 500);
+
+    // player =
+    //     new GameObject("./src/assets/sprites/player-default.png", 500, 500);
+
+    playerEntity = gameRegistry.create();
+    gameRegistry.emplace<Transform>(playerEntity, Vec2(500,500), Vec2(0,0), Vec2(2,2));
+    gameRegistry.emplace<AnimationMap>(playerEntity);
+    gameRegistry.emplace<Sprite>(playerEntity, "./src/assets/sprites/2d_animation_player-run.png");
+    playerSprite = new SpriteManager(gameRegistry, playerEntity);
+    playerSprite->AddAnimation(gameRegistry, "walk", Animation(0, 6, 100));
+    playerSprite->Play(gameRegistry, "walk");
   }
 }
 
@@ -90,7 +104,7 @@ void Game::HandleEvents()
 void Game::Update()
 {
   frame++;
-  player->Update(500, 500);
+  playerSprite->Update(gameRegistry);
 }
 
 void Game::Render()
@@ -98,7 +112,7 @@ void Game::Render()
   SDL_RenderClear(this->renderer);
 
   // Add things to render here
-  player->Render();
+  playerSprite->Render(gameRegistry);
 
   SDL_RenderPresent(this->renderer);
 }
@@ -108,7 +122,8 @@ void Game::Clean()
   SDL_DestroyWindow(this->window);
   SDL_DestroyRenderer(this->renderer);
 
-  delete player;
+  // delete player;
+  delete playerSprite;
 
   SDL_Quit();
   std::cout << "Game cleaned!" << std::endl;
