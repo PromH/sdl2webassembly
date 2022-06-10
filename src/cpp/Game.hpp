@@ -4,12 +4,11 @@
 #include <SDL.h>
 
 // A class for rendering a SDL window containing a game.
-class Game
-{
-private:
+class Game {
+ private:
   SDL_Window *window;
 
-public:
+ public:
   Game();
   ~Game();
 

@@ -10,7 +10,7 @@ RMDIR =
 ASSETDIR = src/assets
 CC = emcc
 INCLUDES = -Ivendor
-EMCC_FLAGS = --preload-file $(ASSETDIR) --use-preload-plugins
+EMCC_FLAGS = --preload-file $(ASSETDIR) --use-preload-plugins -sNO_DISABLE_EXCEPTION_CATCHING
 EMCC_PORTS = -s USE_LIBPNG=1 -s USE_ZLIB=1 -s USE_SDL_IMAGE=2 -s USE_SDL=2
 CCFLAGS = -std=c++1z $(INCLUDES) $(EMCC_PORTS) $(EMCC_FLAGS)
 
@@ -18,7 +18,7 @@ SRC_DIR := src/cpp
 SRC_FILES := $(shell find $(SRC_DIR) -name '*.cpp')
 
 HDR_DIR := src/cpp
-HDR_FILES := $(shell find $(SRC_DIR) -name '*.hpp') $(shell find $(SRC_DIR) -name '*.h')
+HDR_FILES := $(shell find $(HDR_DIR) -name '*.hpp') $(shell find $(HDR_DIR) -name '*.h')
 
 OBJ_DIR := obj
 OBJ_FILES := $(addprefix $(OBJ_DIR)/,$(SRC_FILES:%.cpp=%.o))
@@ -47,26 +47,36 @@ clean:	## Removes all files generated from this Makefile.
 
 all: $(OBJ_FILES)
 
-help:	## Show this help.
-	@echo help
+help:                       ## Show this help.
+	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
 
-sdl-example:	## Compiles the SDL application into a webassembly application.
+prepare-env:                ## Prepares the development environment.
+	@sudo cp tools/bin/clang-format-14_linux-amd64 /usr/local/bin/clang-format
+	@sudo chmod +x /usr/local/bin/clang-format
+
+format:                     ## Formats all the C++ files in the source directory.
+	./tools/scripts/format.sh
+
+sdl-example:                ## Compiles the SDL application into a webassembly application.
 	$(CC) examples/$(example_sdl_target_file).cpp -o $(appname).cc.js -o $(appname).cc.html
 
-sdl2-example:	## Compiles the SDL2 application into a webassembly application.
+sdl2-example:               ## Compiles the SDL2 application into a webassembly application.
 	$(CC) -c examples/$(example_sdl2_target_file).cpp -o $(example_sdl2_target_file).o $(CCFLAGS)
 	$(CC) $(example_sdl2_target_file).o -o $(appname).cc.js -o $(appname).cc.html $(CCFLAGS)
 
-$(OBJ_DIR):	## Generates a directory for holding object files.
+$(OBJ_DIR):                 # Generates a directory for holding object files.
 	@echo Generating mirror directory for object files.
 	mkdir $(OBJ_DIR)
 	find $(SRC_DIR) -type d -exec mkdir -p $(OBJ_DIR)/'{}' \;
 
-$(OBJ_FILES): | $(OBJ_DIR)	## Makes the object directory a dependency for object files.
+$(OBJ_FILES): | $(OBJ_DIR)  # Makes the object directory a dependency for object files.
 
-$(OBJ_DIR)/%.o: %.cpp	## Compiles all cpp files located in the src directory.
+$(OBJ_DIR)/%.o: %.cpp       # Compiles all cpp files located in the src directory.
 	@echo $(@)
 	$(CC) $(CCFLAGS) -c $< -o $@
 
-game: $(OBJ_FILES)	## Compiles the main game into a webassembly application.
+game: $(OBJ_FILES)          ## Compiles the main game into a webassembly application.
 	$(CC) -o $@.cc.js -o $@.cc.html $^ $(CCFLAGS)
+
+serve: game.cc.html         ## Starts a simple HTTP server to serve the application.
+	npx http-server -c-1

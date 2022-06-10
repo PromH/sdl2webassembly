@@ -2,13 +2,14 @@
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
 #endif
+#include <stdlib.h>
+
 #include <functional>
 #include <iostream>
 #include <memory>
-#include <stdlib.h>
 
-#include "Utils/Constants.hpp"
 #include "Game.hpp"
+#include "Utils/Constants.hpp"
 
 // Types
 using VoidCallback = std::function<void()>;
@@ -20,8 +21,7 @@ std::shared_ptr<Game> game = nullptr;
 const int fps = GAME_FPS;
 const int frameDelay = 1000 / fps;
 
-void RunGame()
-{
+void RunGame() {
   Uint32 frameStart = SDL_GetTicks();
 
   // handle any user input
@@ -35,15 +35,14 @@ void RunGame()
 
   // Limiting framerate
   int frameTime = SDL_GetTicks() - frameStart;
-  if (frameDelay > frameTime)
-  {
+  if (frameDelay > frameTime) {
     SDL_Delay(frameDelay - frameTime);
   }
 }
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]) {
   // Game Object Setup
+  // SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "2");
   game = std::make_shared<Game>();
   game->Init("MyGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
              GAME_SCREEN_WIDTH, GAME_SCREEN_HEIGHT);
@@ -53,8 +52,7 @@ int main(int argc, const char *argv[])
 #ifdef __EMSCRIPTEN__
   emscripten_set_main_loop(RunGame, 0, 1);
 #else
-  while (gameIsRunning)
-  {
+  while (gameIsRunning) {
     RunGame();
   }
 #endif

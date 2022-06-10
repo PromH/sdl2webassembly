@@ -3,6 +3,8 @@
 const int TILE_HEIGHT = 64;
 const int TILE_WIDTH = 64;
 
+const int PLAYER_MOVEMENT_SPEED = 20;
+
 const int SPRITE_HEIGHT = 32;
 const int SPRITE_WIDTH = 32;
 const int SPRITE_SCALE = 1;
