@@ -67,8 +67,8 @@ void Game::Init(const char *title, int xpos, int ypos, int width, int height,
 }
 
 void Game::HandleEvents() {
-  SDL_PollEvent(&event);
-  switch (event.type) {
+  SDL_PollEvent(&this->event);
+  switch (this->event.type) {
     case SDL_QUIT:
       Game::isRunning = false;
       break;
@@ -77,8 +77,8 @@ void Game::HandleEvents() {
   }
 
   // Keyboard inputs
-  if (event.type == SDL_KEYUP) {
-    switch (event.key.keysym.sym) {
+  if (this->event.type == SDL_KEYUP) {
+    switch (this->event.key.keysym.sym) {
       case SDLK_ESCAPE:
         Game::isRunning = false;
       default:
@@ -86,7 +86,7 @@ void Game::HandleEvents() {
     }
   }
   // Handle user inputs for the scene here
-  currentScene->HandleEvents();
+  currentScene->HandleEvents(&this->event);
 }
 
 void Game::Update() {

@@ -2,6 +2,8 @@
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
 #endif
+#include <spdlog/spdlog.h>
+
 #include <stdlib.h>
 
 #include <functional>
@@ -41,6 +43,11 @@ void RunGame() {
 }
 
 int main(int argc, const char *argv[]) {
+  // Configurations
+  spdlog::info("LOG_LEVEL is currently set to: DEBUG");
+  spdlog::set_level(spdlog::level::debug);
+  spdlog::debug("Initialising game...");
+
   // Game Object Setup
   // SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "2");
   game = std::make_shared<Game>();

@@ -121,6 +121,7 @@
     "*.tcc": "cpp",
     "memory_resource": "cpp",
     "cinttypes": "cpp",
-    "__assert": "cpp"
+    "__assert": "cpp",
+    "*.inc": "cpp"
   }
 }
