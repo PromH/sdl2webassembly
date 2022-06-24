@@ -22,6 +22,10 @@ void SimpleScene::Init() {
   this->_gameRegistry.emplace<Sprite>(
       this->_playerEntity,
       (SPRITE_DIR_PATH + "2d_animation_player-run.png").c_str());
+  
+  // Background Manager
+  this->_background = std::make_unique<BackgroundManager>("", 1, TILE_WIDTH);
+  this->_background->LoadBackground(GAME_SCREEN_WIDTH, GAME_SCREEN_HEIGHT);
 
   // Sprite manager for player
   this->_playerSprite = std::make_unique<SpriteManager>(this->_gameRegistry,
@@ -38,9 +42,15 @@ void SimpleScene::HandleEvents(SDL_Event* event) {
   this->HandlePlayerMovement(event);
 }
 
-void SimpleScene::Update() { this->_playerSprite->Update(this->_gameRegistry); }
+void SimpleScene::Update() {
+  this->_background->Update();
+  this->_playerSprite->Update(this->_gameRegistry);
+}
 
-void SimpleScene::Render() { this->_playerSprite->Render(this->_gameRegistry); }
+void SimpleScene::Render() {
+  this->_background->Render();
+  this->_playerSprite->Render(this->_gameRegistry);
+}
 
 void SimpleScene::Clean() {}
 

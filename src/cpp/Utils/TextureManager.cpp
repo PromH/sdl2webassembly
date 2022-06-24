@@ -15,3 +15,8 @@ void TextureManager::Draw(SDL_Texture *tex, SDL_Rect src, SDL_Rect dest,
                           SDL_RendererFlip flip) {
   SDL_RenderCopyEx(Game::renderer, tex, &src, &dest, NULL, NULL, flip);
 }
+
+// SDL_Texture* TextureManager::RenderToTexture() {
+//   SDL_CreateTexture(Game::renderer, SDL_PIXELFORMAT_RGBA8888,
+// 		SDL_TEXTUREACCESS_TARGET, WIN_WIDTH, WIN_HEIGHT);
+// }

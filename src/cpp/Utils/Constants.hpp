@@ -1,7 +1,7 @@
 #pragma once
 
-const int TILE_HEIGHT = 64;
-const int TILE_WIDTH = 64;
+const int TILE_HEIGHT = 32;
+const int TILE_WIDTH = 32;
 
 const int PLAYER_MOVEMENT_SPEED = 1;
 

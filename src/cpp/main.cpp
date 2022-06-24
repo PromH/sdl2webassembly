@@ -11,6 +11,7 @@
 #include <memory>
 
 #include "Game.hpp"
+#include "Utils/Config.hpp"
 #include "Utils/Constants.hpp"
 
 // Types
@@ -44,8 +45,10 @@ void RunGame() {
 
 int main(int argc, const char *argv[]) {
   // Configurations
-  spdlog::info("LOG_LEVEL is currently set to: DEBUG");
-  spdlog::set_level(spdlog::level::debug);
+  ConfigData config;
+  config.ParseConfigFile("config/config.ini");
+
+  spdlog::set_level(config.logLevel);
   spdlog::debug("Initialising game...");
 
   // Game Object Setup

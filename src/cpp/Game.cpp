@@ -8,8 +8,7 @@
 #include "Scenes/Scene.hpp"
 #include "Scenes/SimpleScene.hpp"
 #include "Utils/Constants.hpp"
-#include "Utils/GameObject.hpp"
-#include "Utils/SpriteManager.hpp"
+#include "SpriteManager/SpriteManager.hpp"
 #include "Utils/Vec2.hpp"
 
 int frame = 0;

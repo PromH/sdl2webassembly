@@ -9,6 +9,8 @@
 #include "../Components/Components.hpp"
 #include "../MovementStyles/MovementStyle.hpp"
 #include "../MovementStyles/SmoothMovementStyle.hpp"
+#include "../BackgroundManager/BackgroundManager.hpp"
+#include "../SpriteManager/SpriteManager.hpp"
 #include "../Utils/Utils.hpp"
 #include "Scene.hpp"
 
@@ -20,6 +22,7 @@ class SimpleScene : public Scene {
   entt::registry _gameRegistry;
   entt::entity _playerEntity;
   std::unique_ptr<SpriteManager> _playerSprite;
+  std::unique_ptr<BackgroundManager> _background;
   std::unique_ptr<MovementStyle> _movementStyle;
 
  public:
