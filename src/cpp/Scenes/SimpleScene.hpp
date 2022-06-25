@@ -6,10 +6,10 @@
 #include <memory>
 #include <string>
 
+#include "../BackgroundManager/BackgroundManager.hpp"
 #include "../Components/Components.hpp"
 #include "../MovementStyles/MovementStyle.hpp"
 #include "../MovementStyles/SmoothMovementStyle.hpp"
-#include "../BackgroundManager/BackgroundManager.hpp"
 #include "../SpriteManager/SpriteManager.hpp"
 #include "../Utils/Utils.hpp"
 #include "Scene.hpp"

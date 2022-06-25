@@ -17,18 +17,18 @@ class MovementStyle {
 
     // X
     if (origin.x < target.x) {
-      velocity.x = 1 * PLAYER_MOVEMENT_SPEED;
+      velocity.x = 1 * Constants::PLAYER_MOVEMENT_SPEED;
     } else if (origin.x > target.x) {
-      velocity.x = -1 * PLAYER_MOVEMENT_SPEED;
+      velocity.x = -1 * Constants::PLAYER_MOVEMENT_SPEED;
     } else {
       velocity.x = 0;
     }
 
     // Y
     if (origin.y < target.y) {
-      velocity.y = 1 * PLAYER_MOVEMENT_SPEED;
+      velocity.y = 1 * Constants::PLAYER_MOVEMENT_SPEED;
     } else if (origin.y > target.y) {
-      velocity.y = -1 * PLAYER_MOVEMENT_SPEED;
+      velocity.y = -1 * Constants::PLAYER_MOVEMENT_SPEED;
     } else {
       velocity.y = 0;
     }

@@ -1,9 +1,9 @@
-#include <string>
-
-#include <spdlog/spdlog.h>
-#include <inifile-cpp/inicpp.h>
-
 #include "Config.hpp"
+
+#include <inifile-cpp/inicpp.h>
+#include <spdlog/spdlog.h>
+
+#include <string>
 
 void ConfigData::ParseConfigFile(const char* file) {
   // Loading
@@ -11,5 +11,6 @@ void ConfigData::ParseConfigFile(const char* file) {
   myIni.load(file);
 
   // Updating object
-  this->logLevel = spdlog::level::from_str(myIni["LOGGER"]["level"].as<const char*>());
+  this->logLevel =
+      spdlog::level::from_str(myIni["LOGGER"]["level"].as<const char*>());
 }

@@ -7,14 +7,15 @@
 #include "Components/Components.hpp"
 #include "Scenes/Scene.hpp"
 #include "Scenes/SimpleScene.hpp"
-#include "Utils/Constants.hpp"
 #include "SpriteManager/SpriteManager.hpp"
+#include "Utils/Constants.hpp"
 #include "Utils/Vec2.hpp"
 
 int frame = 0;
 SDL_Renderer *Game::renderer = nullptr;
 SDL_Event Game::event;
-SDL_Rect Game::camera = {0, 0, GAME_SCREEN_WIDTH, GAME_SCREEN_HEIGHT};
+SDL_Rect Game::camera = {0, 0, Constants::GAME_SCREEN_WIDTH,
+                         Constants::GAME_SCREEN_HEIGHT};
 
 std::unique_ptr<Scene> currentScene;
 

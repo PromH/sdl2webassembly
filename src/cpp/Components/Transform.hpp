@@ -6,8 +6,8 @@
 class Transform {
  public:
   Vec2 position;
-  int width = SPRITE_WIDTH;
-  int height = SPRITE_WIDTH;
+  int width = Constants::SPRITE_WIDTH;
+  int height = Constants::SPRITE_WIDTH;
   Vec2 rotation;
   Vec2 scale;
 
@@ -22,8 +22,9 @@ class Transform {
     this->width = width;
   }
 
-  Transform(Vec2 &pos, Vec2 &rot, Vec2 &scl, int height = SPRITE_WIDTH,
-            int width = SPRITE_HEIGHT) {
+  Transform(Vec2 &pos, Vec2 &rot, Vec2 &scl,
+            int height = Constants::SPRITE_WIDTH,
+            int width = Constants::SPRITE_HEIGHT) {
     this->position.x = pos.x;
     this->position.y = pos.y;
     this->rotation.x = rot.x;

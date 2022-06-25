@@ -3,7 +3,6 @@
 #include <emscripten.h>
 #endif
 #include <spdlog/spdlog.h>
-
 #include <stdlib.h>
 
 #include <functional>
@@ -21,7 +20,7 @@ using VoidCallback = std::function<void()>;
 std::shared_ptr<Game> game = nullptr;
 
 // Constants
-const int fps = GAME_FPS;
+const int fps = Constants::GAME_FPS;
 const int frameDelay = 1000 / fps;
 
 void RunGame() {
@@ -55,7 +54,7 @@ int main(int argc, const char *argv[]) {
   // SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "2");
   game = std::make_shared<Game>();
   game->Init("MyGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-             GAME_SCREEN_WIDTH, GAME_SCREEN_HEIGHT);
+             Constants::GAME_SCREEN_WIDTH, Constants::GAME_SCREEN_HEIGHT);
   bool gameIsRunning = true;
 
 // Game Loop

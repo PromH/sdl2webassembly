@@ -1,5 +1,6 @@
 #pragma once
 
+namespace Constants {
 const int TILE_HEIGHT = 32;
 const int TILE_WIDTH = 32;
 
@@ -14,3 +15,4 @@ const int GAME_SCREEN_WIDTH = 800;
 const int GAME_SCREEN_HEIGHT = 640;
 
 const int FRAME_DELAY = 100;
+}  // namespace Constants

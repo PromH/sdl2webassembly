@@ -1,18 +1,29 @@
 #pragma once
-#include <vector>
+#include <SDL.h>
+#include <SDL_image.h>
+
+#include <memory>
 #include <string>
+#include <vector>
 
 #include "Tile.hpp"
 
 class BackgroundManager {
-private:
+ private:
   std::string _backgroundFilePath;
   int _backgroundScale;
-	int _tileSize;
-	int _scaledSize;
-  std::vector<Tile> _tiles;
+  int _tileSize;
+  int _scaledSize;
+  std::vector<std::unique_ptr<Tile>> _tiles;
+  std::vector<SDL_Texture*> _tileTextures;
+  std::vector<SDL_Rect*> _tileSrcs;
+  std::vector<SDL_Rect*> _tileDests;
+  std::vector<SDL_RendererFlip> _tileFlips;
+  SDL_Texture* _texture;
+  SDL_Rect _srcRect;
+  SDL_Rect _destRect;
 
-public:
+ public:
   BackgroundManager(const char* bgFile, int bgScale, int tSize);
   ~BackgroundManager();
   void LoadBackground(int width, int height);
