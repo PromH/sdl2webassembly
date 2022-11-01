@@ -9,9 +9,10 @@ RM =
 RMDIR = 
 ASSETDIR = src/assets
 CONFIGDIR = config
+HTMLSHELL = templates/game-shell-template.html
 CC = emcc
 INCLUDES = -Ivendor
-EMCC_FLAGS = --preload-file $(ASSETDIR) --embed-file $(CONFIGDIR) --use-preload-plugins -sNO_DISABLE_EXCEPTION_CATCHING
+EMCC_FLAGS = --preload-file $(ASSETDIR) --embed-file $(CONFIGDIR) --use-preload-plugins -sNO_DISABLE_EXCEPTION_CATCHING --shell-file $(HTMLSHELL)
 EMCC_PORTS = -s USE_LIBPNG=1 -s USE_ZLIB=1 -s USE_SDL_IMAGE=2 -s USE_SDL=2
 CCFLAGS = -std=c++1z $(INCLUDES) $(EMCC_PORTS) $(EMCC_FLAGS)
 
